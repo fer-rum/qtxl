@@ -24,6 +24,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 HEADERS += $$files($$_PRO_FILE_PWD_/include/*.h, true)
 SOURCES += $$files($$_PRO_FILE_PWD_/source/*.cpp, true)
+INCLUDEPATH += $$_PRO_FILE_PWD_/include
 
 
 unix {
