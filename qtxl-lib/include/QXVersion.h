@@ -3,6 +3,7 @@
 #include <qtxl_global.h>
 
 #include <QDate>
+#include <QObject> // for flag declaration
 #include <QString>
 
 namespace qtxl {
@@ -15,13 +16,7 @@ namespace qtxl {
  */
 class QTXLSHARED_EXPORT Version {
 
-private:
-    uint m_major;
-    uint m_minor;
-    uint m_patch;
-    QDate m_date;
-    QStringList m_preReleaseIdentifiers;
-    QStringList m_buildMetadata;
+    Q_GADGET // required for flag metatyping
 
 public:
 
@@ -33,12 +28,26 @@ public:
     static const char BuildMetadataOpener   = '+';
     static const char PreReleaseIdOpener    = '-';
 
-    enum State {
+    enum class StateFlag {
         Ok                          = 0x00,
         // --- Error flags ---
         InvalidPreReleaseIdentifier = 0x01,
-        InvalidBuildMetadata        = 0x02
+        InvalidBuildMetadata        = 0x02,
+        InvalidSemanticVersion      = 0x04
     };
+    Q_DECLARE_FLAGS(StateFlags, StateFlag)
+    Q_FLAG(StateFlags)
+
+private:
+    uint m_major;
+    uint m_minor;
+    uint m_patch;
+    QDate m_date;
+    QStringList m_preReleaseIdentifiers;
+    QStringList m_buildMetadata;
+    StateFlags m_state;
+
+public:
 
     Version(uint major          = 0,
             uint minor          = 0,
@@ -46,7 +55,6 @@ public:
             QStringList const& preReleaseIdentifiers = {},
             QStringList const& buildMetadata = {},
             QDate const& date   = {});
-    Version(QDate const& date);
 
     ~Version() = default;
     Version(Version const& other) = default;
@@ -60,6 +68,7 @@ public:
     QDate date() const;
 
     // --- Operators ---
+
     bool operator==(Version const& other) const;
     bool operator!=(Version const& other) const;
 
@@ -69,10 +78,20 @@ public:
     bool operator>=(Version const& other) const;
 
     // --- Utility functions ---
+
+    // TODO: Documentation
     bool hasPreReleaseIdentifiers() const;
+
+    // TODO: Documentation
     bool hasBuildMetaData() const;
+
+    // TODO: Documentation
     bool compatibleWith(Version const& other) const;
+
+    // TODO: Documentation
     QString toQString() const;
 };
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(Version::StateFlags)
 
 }

@@ -33,6 +33,13 @@ enum ComparisonResult {
     Succeeds    = 1
 };
 
+/**
+ * @brief asComparisonResult transforms an integer that is the result of a
+ * comparison function into a @see qtxl::ComparisonResult
+ * @param retunValue is the returnValue that was provided by the
+ * comparison function.
+ * @return
+ */
 ComparisonResult asComparisonResult(int retunValue);
 
 }
