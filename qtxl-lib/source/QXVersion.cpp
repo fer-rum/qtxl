@@ -71,7 +71,7 @@ Version::Version(uint major, uint minor, uint patch,
     // check the validity of the build metadata
     for(QString const& identifier : m_buildMetadata){
         if(!isValidIdentifier(identifier, buildMetadataRegex)){
-            m_state |= StateFlag::InvalidPreReleaseIdentifier;
+            m_state |= StateFlag::InvalidBuildMetadata;
             break;
         }
     }
@@ -166,6 +166,12 @@ Version::hasBuildMetaData() const {
 }
 
 // --- Utility functions ---
+
+bool
+Version::isValid() const {
+    return !m_state;
+}
+
 bool
 Version::compatibleWith(Version const& other) const {
 

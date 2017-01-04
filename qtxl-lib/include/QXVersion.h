@@ -10,8 +10,7 @@ namespace qtxl {
 
 /**
  * @brief The Version class provides a container for version information and
- * utility functions for <a href=http://semver.org/>semantic versioning as
- * described by Tom Preston-Werner</a>.
+ * utility functions for <a href=http://semver.org/>semantic versioning 2.0.0</a>.
  * A version may optionally contain a date stamp.
  */
 class QTXLSHARED_EXPORT Version {
@@ -79,16 +78,50 @@ public:
 
     // --- Utility functions ---
 
-    // TODO: Documentation
+    /**
+     * @brief isValid checks whether this version is a correct and well-formed
+     * semantic version.
+     * @return <b>true</b> if this is a valid semantic version, <b>false</b>
+     * otherwise.
+     */
+    bool isValid() const;
+
+    /**
+     * @brief hasBuildMetaData checks whether pre-release identifiers are available
+     * for this version.
+     * @return <b>true</b> if there are pre-release identifiers, <b>false</b>
+     * otherwise.
+     */
     bool hasPreReleaseIdentifiers() const;
 
-    // TODO: Documentation
+    /**
+     * @brief hasBuildMetaData checks whether build metadata are available
+     * for this version.
+     * @return <b>true</b> if there are build metadata, <b>false</b> otherwise.
+     */
     bool hasBuildMetaData() const;
 
-    // TODO: Documentation
+    /**
+     * @brief compatibleWith checks whether this version is compatible with
+     * another given version.
+     * Two versions are considered compatible with each other if they share the
+     * same major version number.
+     * @param other is the version to check against.
+     * @return <b>true</b> if both versions are compatible, <b>false</b>
+     * otherwise.
+     */
     bool compatibleWith(Version const& other) const;
 
-    // TODO: Documentation
+    /**
+     * @brief toQString creates a new QString representing this version.
+     * The constructed string contains major, minor and patch version numbers.
+     * If available, pre-release identifiers are appended first, then
+     * build metadata.
+     * The date is not included in the string representation
+     * (unless provided manually in the build metadata).
+     * @return a new QString representing this version according to the
+     * SemVer 2.0.0 specification.
+     */
     QString toQString() const;
 };
 
