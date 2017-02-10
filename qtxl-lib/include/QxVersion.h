@@ -1,6 +1,7 @@
 #pragma once
 
 #include <qtxl_global.h>
+#include <QxInterfaces.h>
 
 #include <QDate>
 #include <QObject> // for flag declaration
@@ -14,7 +15,8 @@ namespace qtxl {
  * A version may optionally contain a date stamp.
  * @author Fredo Erxleben
  */
-class QTXLSHARED_EXPORT Version {
+class QTXLSHARED_EXPORT QxVersion :
+    public IsQStringConvertible {
 
     Q_GADGET // required for flag metatyping
 
@@ -53,15 +55,15 @@ private:
 
 public:
 
-    Version(uint major          = 0,
+    QxVersion(uint major          = 0,
             uint minor          = 0,
             uint patch          = 0,
             QStringList const& preReleaseIdentifiers = {},
             QStringList const& buildMetadata = {},
             QDate const& date   = {});
 
-    ~Version() = default;
-    Version(Version const& other) = default;
+    ~QxVersion() = default;
+    QxVersion(QxVersion const& other) = default;
 
     // --- Getters ---
     uint major() const;
@@ -73,13 +75,13 @@ public:
 
     // --- Operators ---
 
-    bool operator==(Version const& other) const;
-    bool operator!=(Version const& other) const;
+    bool operator==(QxVersion const& other) const;
+    bool operator!=(QxVersion const& other) const;
 
-    bool operator< (Version const& other) const;
-    bool operator> (Version const& other) const;
-    bool operator<=(Version const& other) const;
-    bool operator>=(Version const& other) const;
+    bool operator< (QxVersion const& other) const;
+    bool operator> (QxVersion const& other) const;
+    bool operator<=(QxVersion const& other) const;
+    bool operator>=(QxVersion const& other) const;
 
     // --- Utility functions ---
 
@@ -115,7 +117,7 @@ public:
      * @return <b>true</b> if both versions are compatible, <b>false</b>
      * otherwise.
      */
-    bool compatibleWith(Version const& other) const;
+    bool compatibleWith(QxVersion const& other) const;
 
     /**
      * @brief toQString creates a new QString representing this version.
@@ -127,10 +129,10 @@ public:
      * @return a new QString representing this version according to the
      * SemVer 2.0.0 specification.
      */
-    QString toQString() const;
+    QString toQString() const override;
 };
 
 // This is also required so flags can be combined with the "|" operator
-Q_DECLARE_OPERATORS_FOR_FLAGS(Version::StateFlags)
+Q_DECLARE_OPERATORS_FOR_FLAGS(QxVersion::StateFlags)
 
 }

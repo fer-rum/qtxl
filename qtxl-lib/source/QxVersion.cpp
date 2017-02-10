@@ -1,5 +1,5 @@
-#include <QXVersion.h>
-#include <util.h>
+#include <QxVersion.h>
+#include <QxUtil.h>
 
 #include <QRegularExpression>
 
@@ -50,7 +50,7 @@ isValidIdentifier(QString const& identifier,
 } // end anonymous namespace
 
 // --- General ---
-Version::Version(uint major, uint minor, uint patch,
+QxVersion::QxVersion(uint major, uint minor, uint patch,
                  QStringList const& preReleaseIdentifiers,
                  QStringList const& buildMetadata,
                  QDate const& date) :
@@ -88,38 +88,38 @@ Version::Version(uint major, uint minor, uint patch,
 
 // --- Getters ---
 uint
-qtxl::Version::major() const{
+qtxl::QxVersion::major() const{
     return m_major;
 }
 
 uint
-qtxl::Version::minor() const {
+qtxl::QxVersion::minor() const {
     return m_minor;
 }
 
 uint
-Version::patch() const {
+QxVersion::patch() const {
     return m_patch;
 }
 
 QStringList
-Version::preReleaseIdentifiers() const {
+QxVersion::preReleaseIdentifiers() const {
     return m_preReleaseIdentifiers;
 }
 
 QStringList
-Version::buildMetaData() const {
+QxVersion::buildMetaData() const {
     return m_buildMetadata;
 }
 
 QDate
-Version::date() const {
+QxVersion::date() const {
     return m_date;
 }
 
 // --- Operators ---
 bool
-Version::operator==(Version const& other) const {
+QxVersion::operator==(QxVersion const& other) const {
 
     using Tied = std::tuple<uint, uint, uint, QStringList, QDate> const;
 
@@ -132,12 +132,12 @@ Version::operator==(Version const& other) const {
 }
 
 bool
-Version::operator!=(Version const& other) const {
+QxVersion::operator!=(QxVersion const& other) const {
     return !operator==(other);
 }
 
 bool
-Version::operator< (Version const& other) const {
+QxVersion::operator< (QxVersion const& other) const {
 
     using Tied = std::tuple<uint, uint, uint, QStringList, QDate> const;
 
@@ -150,46 +150,46 @@ Version::operator< (Version const& other) const {
 }
 
 bool
-Version::operator> (Version const& other) const {
+QxVersion::operator> (QxVersion const& other) const {
     return (!operator<(other) && operator!=(other));
 }
 
 bool
-Version::operator<=(Version const& other) const {
+QxVersion::operator<=(QxVersion const& other) const {
     return(operator<(other) || operator==(other));
 }
 
 bool
-Version::operator>=(Version const& other) const {
+QxVersion::operator>=(QxVersion const& other) const {
     return !operator<(other);
 }
 
 bool
-Version::hasPreReleaseIdentifiers() const {
+QxVersion::hasPreReleaseIdentifiers() const {
     return !m_preReleaseIdentifiers.isEmpty();
 }
 
 bool
-Version::hasBuildMetaData() const {
+QxVersion::hasBuildMetaData() const {
     return !m_buildMetadata.isEmpty();
 }
 
 // --- Utility functions ---
 
 bool
-Version::isValid() const {
+QxVersion::isValid() const {
 
     return (m_state == StateFlag::Ok);
 }
 
 bool
-Version::compatibleWith(Version const& other) const {
+QxVersion::compatibleWith(QxVersion const& other) const {
 
     return m_major == other.m_major;
 }
 
 QString
-Version::toQString() const {
+QxVersion::toQString() const {
 
     QString versionText = QString("%1.%2.%3").arg(m_major, m_minor, m_patch);
 

@@ -1,4 +1,4 @@
-#include <util.h>
+#include <QxUtil.h>
 
 using namespace qtxl;
 
