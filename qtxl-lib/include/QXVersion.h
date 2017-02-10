@@ -12,6 +12,7 @@ namespace qtxl {
  * @brief The Version class provides a container for version information and
  * utility functions for <a href=http://semver.org/>semantic versioning 2.0.0</a>.
  * A version may optionally contain a date stamp.
+ * @author Fredo Erxleben
  */
 class QTXLSHARED_EXPORT Version {
 
@@ -27,23 +28,27 @@ public:
     static const char BuildMetadataOpener   = '+';
     static const char PreReleaseIdOpener    = '-';
 
-    enum class StateFlag {
-        Ok                          = 0x00,
+    enum StateFlag {
+        Ok                          = 0,
         // --- Error flags ---
-        InvalidPreReleaseIdentifier = 0x01,
-        InvalidBuildMetadata        = 0x02,
-        InvalidSemanticVersion      = 0x04
+        InvalidPreReleaseIdentifier = 1 << 0,
+        InvalidBuildMetadata        = 1 << 1,
+        InvalidSemanticVersion      = 1 << 2
     };
     Q_DECLARE_FLAGS(StateFlags, StateFlag)
     Q_FLAG(StateFlags)
+    // Operators for flags declared after the class
 
 private:
     uint m_major;
     uint m_minor;
     uint m_patch;
-    QDate m_date;
+
     QStringList m_preReleaseIdentifiers;
     QStringList m_buildMetadata;
+
+    QDate m_date;
+
     StateFlags m_state;
 
 public:
@@ -125,6 +130,7 @@ public:
     QString toQString() const;
 };
 
+// This is also required so flags can be combined with the "|" operator
 Q_DECLARE_OPERATORS_FOR_FLAGS(Version::StateFlags)
 
 }

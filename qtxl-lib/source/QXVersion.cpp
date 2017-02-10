@@ -12,10 +12,19 @@ namespace {
 // These are helpers for this compile unit only,
 // thus they are wrapped in an anonymous namespace.
 
+/*
+ * A pre-release identifier can be one of the following:
+ * * purely numeric without a leading zero
+ * * alphanumeric with a leading zero.
+ */
 const QRegularExpression
-preReleaseRegex{R"regex(^[1-9A-Za-z-]+(\.[0-9A-Za-z-]+)*$)regex",
+preReleaseRegex{R"regex(^([1-9][0-9]*)|([0-9]*[A-Za-z-]+[0-9A-Za-z-]*)$)regex",
                 QRegularExpression::OptimizeOnFirstUsageOption};
 
+/*
+ * A build metadata identifier can be
+ * * alphanumeric or purely numeric with leading zero.
+ */
 const QRegularExpression
 buildMetadataRegex{R"regex(^[0-9A-Za-z-]+$)regex",
                   QRegularExpression::OptimizeOnFirstUsageOption};
@@ -169,7 +178,8 @@ Version::hasBuildMetaData() const {
 
 bool
 Version::isValid() const {
-    return !m_state;
+
+    return (m_state == StateFlag::Ok);
 }
 
 bool
