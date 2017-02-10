@@ -36,9 +36,9 @@ enum ComparisonResult {
 /**
  * @brief asComparisonResult transforms an integer that is the result of a
  * comparison function into a @see qtxl::ComparisonResult
- * @param retunValue is the returnValue that was provided by the
+ * @param retunValue is the integer value that was provided by the
  * comparison function.
- * @return
+ * @return the ComparisonResult that corresponds with the passed integer.
  */
 ComparisonResult asComparisonResult(int retunValue);
 
