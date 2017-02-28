@@ -113,13 +113,14 @@ bool
 QxStringId::isValid() const {
 
     if(isRoot()) {
+        // root is always valid
         return true;
     }
 
     if(level() < 1){
         // level < 0 -> invalid
-        // level == 0 -> did not equal root, but has root level, which is not
-        // allowed.
+        // level == 0 -> did not equal root before
+        // but has root level, which is not allowed.
         return false;
     }
 
@@ -128,7 +129,7 @@ QxStringId::isValid() const {
 
 bool
 QxStringId::isRoot() const {
-    return ((*this) == rootId);
+    return this->m_internal == rootId.m_internal;
 }
 
 QString
@@ -143,6 +144,8 @@ QxStringId::toQString(QxStringId::Representation usedRepresentation) const {
         return m_internal.join(separator);
     case Representation::LocalRepresentation:
         return m_internal.last();
+    default:
+        return QString();
     }
 }
 
