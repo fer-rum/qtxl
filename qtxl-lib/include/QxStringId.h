@@ -3,6 +3,7 @@
 #include <qtxl_global.h>
 #include <QxInterfaces.h>
 
+#include <QDebug>
 #include <QList>
 #include <QObject> // for QGadget
 #include <QString>
@@ -122,6 +123,21 @@ public:
 
     // --- Operators ---
     bool operator==(QxStringId const& other) const;
-};
+    bool operator!=(QxStringId const& other) const;
 
+}; // end class QxStringId
+
+} // end namespace qtxl
+
+/**
+ * @brief operator << is a convenience operator to allow using native QxStringId
+ * objects within QDebug.
+ * @param debug is the QDebug stream to which the id is to be appended.
+ * @param id
+ * @return
+ */
+inline QDebug operator<<(QDebug& debug, qtxl::QxStringId const &id) {
+    return debug << id.toQString(qtxl::QxStringId::GlobalRepresentation);
 }
+
+Q_DECLARE_METATYPE(qtxl::QxStringId)

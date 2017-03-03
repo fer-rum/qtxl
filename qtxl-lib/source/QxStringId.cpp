@@ -15,7 +15,7 @@ QxStringId::QxStringId(QStringList representation) :
 QxStringId::QxStringId() :
     m_internal{} {}
 
-QxStringId::QxStringId(const QString& localId, const QxStringId& parentId) {
+QxStringId::QxStringId(QString const& localId, QxStringId const& parentId) {
 
     if(!parentId.isValid()){
         return; // this will be invalid as well
@@ -44,7 +44,7 @@ QxStringId::directParentId() const {
 }
 
 bool
-QxStringId::isParentOf(const QxStringId& childId) const {
+QxStringId::isParentOf(QxStringId const& childId) const {
 
     if(!isValid() ||
        !childId.isValid() ||
@@ -72,7 +72,7 @@ QxStringId::isParentOf(const QxStringId& childId) const {
 }
 
 bool
-QxStringId::isDirectParentOf(const QxStringId& childId) const {
+QxStringId::isDirectParentOf(QxStringId const& childId) const {
 
     if(!isValid() ||
        !childId.isValid() ||
@@ -156,7 +156,7 @@ QxStringId::toQString() const {
 }
 
 bool
-QxStringId::operator==(const QxStringId& other) const {
+QxStringId::operator==(QxStringId const& other) const {
 
     // Invalid is invalid, no matter what.
     if( !isValid() && !other.isValid()){
@@ -164,4 +164,9 @@ QxStringId::operator==(const QxStringId& other) const {
     }
 
     return (m_internal == other.m_internal);
+}
+
+bool
+QxStringId::operator!=(QxStringId const& other) const {
+    return !operator==(other);
 }
