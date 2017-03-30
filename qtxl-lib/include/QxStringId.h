@@ -39,10 +39,15 @@ public:
     };
     Q_ENUM(Representation);
 
+    // Default constructor, copy constructor and destructor
+    // Required for QMetaType declaration
     /**
      * @brief QStringId constructs an invalid identifier.
      */
     QxStringId();
+    QxStringId(QxStringId const& other) = default;
+    ~QxStringId() = default;
+
     QxStringId(QString const& localId, QxStringId const& directParentId);
 
     /**

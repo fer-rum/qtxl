@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QMetaType>
 #include <QString>
 
 namespace qtxl {
@@ -12,6 +13,6 @@ class IsQStringConvertible {
 
 public:
     virtual QString toQString() const = 0;
-};
+}; // class Is QStringConvertible
 
 }
