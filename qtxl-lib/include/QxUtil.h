@@ -1,5 +1,8 @@
 #pragma once
 
+#include <QHash>
+#include <QSet>
+
 /*
  *  This header contains global utility functionality that did not fit anywhere
  * more specific.
@@ -41,5 +44,18 @@ enum ComparisonResult {
  * @return the ComparisonResult that corresponds with the passed integer.
  */
 ComparisonResult asComparisonResult(int retunValue);
+
+/**
+ * @brief keysforValue iterates through a given QHash and filters out all keys
+ * that are associated with a specific value.
+ * @param fromHash is the hash trhough which to iterate.
+ * @param value is the value for which to filter. Values are compared by using
+ * the operator==().
+ * @return a set containing all keys whose associated values matched the
+ * requested value.
+ */
+template <typename KeyType, typename ValueType>
+QSet<KeyType> keysForValue(QHash<KeyType, ValueType> const& fromHash,
+                           ValueType const& value);
 
 }
