@@ -16,7 +16,7 @@ namespace qtxl {
  * <ul>
  * <li>If the comparing item preceeds the compared with item, the result is
  * &lt; 0 </li>
- * <li> If the compating item and the compared with item are equal, the result
+ * <li> If the comparing item and the compared with item are equal, the result
  * is 0 </li>
  * <li> If the comparing item succeeds the compared with item, the result is
  * &gt; 0 </li>
