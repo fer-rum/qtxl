@@ -36,7 +36,7 @@ Test_QxStringId::test_rootElement() {
     QxStringId rootId = QxStringId::rootId;
 
     // Root Id is always valid
-    QVERIFY2(rootId.isValid(),      "RootId should return 'true' for isRoot()");
+    QVERIFY2(rootId.isValid(),      "RootId should return 'true' for isValid()");
     QVERIFY2(rootId.isRoot(),       "RootId should return 'true' for isRoot()");
     QVERIFY2(rootId.level() == 0,   "RootId should return '0' for level()");
 }

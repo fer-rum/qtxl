@@ -1,7 +1,7 @@
 #pragma once
 
 #include <qtxl_global.h>
-#include <QxInterfaces.h>
+#include <interfaces/IsQStringConvertible.h>
 
 #include <QDebug>
 #include <QList>
